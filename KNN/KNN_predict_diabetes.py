@@ -5,11 +5,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import *
 
-dataset = pd.read_csv('diabetes.csv')
+dataset = pd.read_csv('KNN/diabetes.csv')
 print(len(dataset))
-dataset.head()
+print("\n")
+print(dataset.head())
+print("\n")
 
 print(dataset.isnull().sum())
+print("\n")
 
 #replace zeroes
 zeroes_not_accepted = ['Glucose','BloodPressure','SkinThickness','BMI','Insulin']
@@ -31,7 +34,7 @@ X_test = sc_X.transform(X_test)
 
 #how to determine what value of k neighbor to use
 import math
-math.sqrt(len(y_test))
+print("size of neighbor to use is",math.sqrt(len(y_test)))
 
 #if it is an even number integer, then try to make it odd. we can determine a vote with even number. Hence we make it odd and choose 11
 #define the model : Init K-NN
@@ -43,17 +46,17 @@ classifier.fit(X_train, y_train)
 
 #predict the test set results
 y_pred = classifier.predict(X_test)
-y_pred
+print("predicted value ",y_pred,"\n")
 
 
 #Evaluate the model using confusion matrix
 #confusion matrix is a performance measurement for machine learning classification
 cm = confusion_matrix(y_test, y_pred)
-print(cm)
+print("Confusion Matrix: \n",cm)
 
 #check if false positive and false negative are crucial
-f1_score(y_test,y_pred)
+print("Printing the prediction ratio using false positive and false negative is",f1_score(y_test,y_pred),"\n")
 
 #check if true positive and true negative are crucial
-accuracy_score(y_test, y_pred)
+print("Printing the prediction ratio using false positive and false negative is",accuracy_score(y_test, y_pred),"\n")
 
